@@ -20,26 +20,15 @@ const PokemonResults = () => {
     requestPokemon();
   }, []);
 
-  async function requestNextPage() {
-    if (nextPage) {
-      const res = await fetch(nextPage);
+  async function requestPage(page) {
+    if (page) {
+      const res = await fetch(page);
       const json = await res.json();
 
       setPokemonResults(json.results);
       setNextPage(json.next);
       setPrevPage(json.previous);
-    } else console.log("no more new pages");
-  }
-
-  async function requestPrevPage() {
-    if (prevPage) {
-      const res = await fetch(prevPage);
-      const json = await res.json();
-
-      setPokemonResults(json.results);
-      setNextPage(json.next);
-      setPrevPage(json.previous);
-    } else console.log("no more prev pages");
+    } else console.log("no more pages");
   }
 
   const logState = () => {
@@ -52,8 +41,8 @@ const PokemonResults = () => {
     <div>
       <input type="number"></input>
       <button onClick={requestPokemon}>Request Pokemon</button>
-      <button onClick={requestNextPage}>Request next page</button>
-      <button onClick={requestPrevPage}>Request prev page</button>
+      <button onClick={(e) => requestPage(nextPage)}>Request next page</button>
+      <button onClick={(e) => requestPage(prevPage)}>Request prev page</button>
       <button onClick={logState}>Log state</button>
       {pokemonResults.map((pokemon) => (
         <div key={pokemon.name}>
