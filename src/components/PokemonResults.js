@@ -5,7 +5,7 @@ const PokemonResults = () => {
   const [pokemonResults, setPokemonResults] = useState([]);
   // const [searchOffset, setSearchOffset] = useState(0);
   const [nextPage, setNextPage] = useState("");
-  const [prevPage, setPrevPage] = useState("");
+  const [prevPage, setPrevPage] = useState(null);
 
   async function requestPokemon() {
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/`);
@@ -13,7 +13,6 @@ const PokemonResults = () => {
 
     setPokemonResults(json.results);
     setNextPage(json.next);
-    setPrevPage(null);
   }
 
   useEffect(() => {
