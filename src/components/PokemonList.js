@@ -1,5 +1,9 @@
-const PokemonList = (pokemonResults) => {
-  return pokemonResults.map((pokemon) => <h2>{pokemon}</h2>);
+const PokemonList = ({ pokemonResults }) => {
+  return pokemonResults ? (
+    pokemonResults.map((pokemon) => <h1>{pokemon.name}</h1>)
+  ) : (
+    <h1>loading pokemans...</h1>
+  );
 };
 
 export default PokemonList;
