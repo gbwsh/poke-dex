@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API_URL from "../Api";
 import PokemonList from "./PokemonList";
 
 const PokemonResults = () => {
@@ -6,10 +7,9 @@ const PokemonResults = () => {
   const [nextPage, setNextPage] = useState("");
   const [prevPage, setPrevPage] = useState(null);
 
-  const requestPokemon = async () =>
-    await fetch(`https://pokeapi.co/api/v2/pokemon/`);
+  const requestPokemon = async () => await fetch(API_URL);
 
-  const homePage = () =>
+  useEffect(() => {
     requestPokemon()
       .then((response) => response.json())
       .then((response) => {
@@ -17,10 +17,7 @@ const PokemonResults = () => {
         setNextPage(response.next);
         setPrevPage(null);
       });
-
-  useEffect(() => {
-    homePage();
-  }, []);
+  }, [pokemonResults, nextPage, prevPage]);
 
   async function requestPage(page) {
     if (page) {
@@ -42,7 +39,6 @@ const PokemonResults = () => {
   return (
     <div>
       <input type="number"></input>
-      <button onClick={homePage}>home</button>
       <button onClick={() => requestPage(prevPage)}>{"<"}</button>
       <button onClick={() => requestPage(nextPage)}>{">"}</button>
       <button onClick={logState}>Log state</button>
