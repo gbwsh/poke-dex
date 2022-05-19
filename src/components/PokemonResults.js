@@ -17,7 +17,7 @@ const PokemonResults = () => {
         setNextPage(response.next);
         setPrevPage(null);
       });
-  }, [pokemonResults, nextPage, prevPage]);
+  }, []);
 
   async function requestPage(page) {
     if (page) {
