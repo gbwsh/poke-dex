@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import API_URL from "../Api";
 
-const PokemonDetail = ({ pokemon }) => {
+const PokemonDetail = () => {
   const [pokemonDetail, setPokemonDetail] = useState({});
   const { id } = useParams();
 
