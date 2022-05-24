@@ -12,6 +12,7 @@ const PokemonResults = () => {
 
   useEffect(() => {
     homePage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const homePage = () => {

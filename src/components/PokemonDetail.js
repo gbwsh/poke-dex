@@ -12,6 +12,7 @@ const PokemonDetail = () => {
     requestDetail()
       .then((response) => response.json())
       .then((response) => setPokemonDetail(response));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (pokemonDetail) {
