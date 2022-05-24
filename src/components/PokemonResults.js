@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import API_URL from "../Api";
 import PokemonList from "./PokemonList";
 
@@ -10,6 +11,11 @@ const PokemonResults = () => {
   const requestPokemon = async () => await fetch(API_URL);
 
   useEffect(() => {
+    homePage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const homePage = () => {
     requestPokemon()
       .then((response) => response.json())
       .then((response) => {
@@ -17,7 +23,7 @@ const PokemonResults = () => {
         setNextPage(response.next);
         setPrevPage(null);
       });
-  }, []);
+  };
 
   async function requestPage(page) {
     if (page) {
@@ -30,18 +36,18 @@ const PokemonResults = () => {
     } else console.log("no more pages");
   }
 
-  const logState = () => {
-    console.log(nextPage, "next page");
-    console.log(prevPage, "prevpage");
-    console.log(pokemonResults, "pokemon results");
-  };
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
 
   return (
     <div>
-      <input type="number"></input>
       <button onClick={() => requestPage(prevPage)}>{"<"}</button>
+      <button onClick={(e) => homePage()}>Home</button>
       <button onClick={() => requestPage(nextPage)}>{">"}</button>
-      <button onClick={logState}>Log state</button>
+      <Link to={`/details/${getRandomInt(898)}`}>
+        <button>Random Pokemon</button>
+      </Link>
       <PokemonList pokemonResults={pokemonResults} />
     </div>
   );
