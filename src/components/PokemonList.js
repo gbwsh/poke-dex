@@ -5,7 +5,7 @@ const PokemonList = ({ pokemonResults }) => {
     pokemonResults.map((pokemon) => {
       return (
         <Link to={`/details/${pokemon.name}`} key={pokemon.name}>
-          {pokemon.name}
+          <h1>{pokemon.name}</h1>
         </Link>
       );
     })
