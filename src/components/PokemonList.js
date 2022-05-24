@@ -4,7 +4,11 @@ const PokemonList = ({ pokemonResults }) => {
   return pokemonResults ? (
     pokemonResults.map((pokemon) => {
       return (
-        <Link to={`/details/${pokemon.name}`} key={pokemon.name}>
+        <Link
+          to={`/details/${pokemon.name}`}
+          key={pokemon.name}
+          className="hover:underline"
+        >
           {pokemon.name}
         </Link>
       );
