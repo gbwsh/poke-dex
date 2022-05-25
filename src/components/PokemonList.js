@@ -9,7 +9,9 @@ const PokemonList = ({ pokemonResults }) => {
           key={pokemon.name}
           className="hover:underline hover:uppercase hover:text-blue-600 text-center"
         >
-          <h1>{pokemon.name}</h1>
+          <h1 className="bg-blue-400 border-2 self-center">
+            {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+          </h1>
         </Link>
       );
     })

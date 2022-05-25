@@ -42,7 +42,7 @@ const PokemonResults = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="bg-orange-300 text-center w-full flex justify-center">
+      <div className="bg-gray-900 text-center text-red-50 w-full flex justify-center">
         <button className="w-auto" onClick={() => requestPage(prevPage)}>
           {"<"}
         </button>
@@ -54,7 +54,7 @@ const PokemonResults = () => {
           </Link>
         </div>
       </div>
-      <div className="bg-orange-400 w-full">
+      <div className="bg-gray-800 w-full grid xs:grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-2">
         <PokemonList pokemonResults={pokemonResults} />
       </div>
     </div>
