@@ -54,7 +54,7 @@ const PokemonResults = () => {
           </Link>
         </div>
       </div>
-      <div className="bg-orange-400 w-full flex">
+      <div className="bg-orange-400 w-full">
         <PokemonList pokemonResults={pokemonResults} />
       </div>
     </div>
