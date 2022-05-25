@@ -41,14 +41,22 @@ const PokemonResults = () => {
   }
 
   return (
-    <div>
-      <button onClick={() => requestPage(prevPage)}>{"<"}</button>
-      <button onClick={(e) => homePage()}>Home</button>
-      <button onClick={() => requestPage(nextPage)}>{">"}</button>
-      <Link to={`/details/${getRandomInt(898)}`}>
-        <button>Random Pokemon</button>
-      </Link>
-      <PokemonList pokemonResults={pokemonResults} />
+    <div className="flex flex-col items-center">
+      <div className="bg-orange-300 text-center w-full flex justify-center">
+        <button className="w-auto" onClick={() => requestPage(prevPage)}>
+          {"<"}
+        </button>
+        <button onClick={(e) => homePage()}>Home</button>
+        <button onClick={() => requestPage(nextPage)}>{">"}</button>
+        <div>
+          <Link to={`/details/${getRandomInt(898)}`}>
+            <button>Random Pokemon</button>
+          </Link>
+        </div>
+      </div>
+      <div className="bg-orange-400 w-full flex">
+        <PokemonList pokemonResults={pokemonResults} />
+      </div>
     </div>
   );
 };
