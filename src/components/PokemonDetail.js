@@ -13,7 +13,7 @@ const PokemonDetail = () => {
       .then((response) => response.json())
       .then((response) => setPokemonDetail(response));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [id]);
 
   if (pokemonDetail) {
     return (

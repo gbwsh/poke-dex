@@ -16,8 +16,9 @@ function App() {
           </Link>
         </header>
         <Routes>
-          <Route path="/" element={<PokemonResults />} />
-          <Route path="/details/:id" element={<PokemonDetail />} />
+          <Route path="/" element={<PokemonResults />}>
+            <Route path="/details/:id" element={<PokemonDetail />} />
+          </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>

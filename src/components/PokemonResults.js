@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import API_URL from "../Api";
 import PokemonList from "./PokemonList";
 
@@ -9,6 +9,8 @@ const PokemonResults = () => {
   const [prevPage, setPrevPage] = useState(null);
 
   const requestPokemon = async () => await fetch(API_URL);
+
+  let navigate = useNavigate();
 
   useEffect(() => {
     homePage();
@@ -40,6 +42,10 @@ const PokemonResults = () => {
     return Math.floor(Math.random() * max);
   }
 
+  const randomPokemon = () => {
+    navigate(`../details/${getRandomInt(898)}`, { replace: true });
+  };
+
   return (
     <div className="flex flex-col items-center">
       <div className="bg-gray-900 text-center text-red-50 w-full flex justify-center">
@@ -49,14 +55,13 @@ const PokemonResults = () => {
         <button onClick={(e) => homePage()}>Home</button>
         <button onClick={() => requestPage(nextPage)}>{">"}</button>
         <div>
-          <Link to={`/details/${getRandomInt(898)}`}>
-            <button>Random Pokemon</button>
-          </Link>
+          <button onClick={randomPokemon}>Random Pokemon</button>
         </div>
       </div>
       <div className="bg-gray-800 w-full grid xs:grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-2">
         <PokemonList pokemonResults={pokemonResults} />
       </div>
+      <Outlet />
     </div>
   );
 };
