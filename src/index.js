@@ -8,16 +8,21 @@ import PokemonResults from "./components/PokemonResults";
 
 function App() {
   return (
-    <BrowserRouter>
-      <header>
-        <Link to="/">Pokedex</Link>
-      </header>
-      <Routes>
-        <Route path="/" element={<PokemonResults />} />
-        <Route path="/details/:id" element={<PokemonDetail />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </BrowserRouter>
+    <div className="p-0 m-0">
+      <BrowserRouter>
+        <header className="w-full mb-00 text-center p-7 bg-gradient-to-r from-orange-400 via-amber-400 to-blue-400 h-32px">
+          <Link to="/" className="text-2xl hover:font-bold hover:underline">
+            Pokedex
+          </Link>
+        </header>
+        <Routes>
+          <Route path="/" element={<PokemonResults />}>
+            <Route path="/details/:id" element={<PokemonDetail />} />
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 
