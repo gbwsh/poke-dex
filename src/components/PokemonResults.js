@@ -8,7 +8,7 @@ const PokemonResults = () => {
   const [nextPage, setNextPage] = useState("");
   const [prevPage, setPrevPage] = useState(null);
 
-  const requestPokemon = async () => await fetch(API_URL);
+  const requestPokemon = async () => await fetch(API_URL + "?limit=10");
 
   let navigate = useNavigate();
 
@@ -47,21 +47,25 @@ const PokemonResults = () => {
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="bg-gray-900 text-center text-red-50 w-full flex justify-center">
-        <button className="w-auto" onClick={() => requestPage(prevPage)}>
-          {"<"}
-        </button>
-        <button onClick={(e) => homePage()}>Home</button>
-        <button onClick={() => requestPage(nextPage)}>{">"}</button>
-        <div>
-          <button onClick={randomPokemon}>Random Pokemon</button>
+    <div className="grid grid-cols-2">
+      <div className="bg-red-600">
+        <div className="bg-slate-700 text-white">
+          <button className="" onClick={() => requestPage(prevPage)}>
+            {"<"}
+          </button>
+          <button onClick={(e) => homePage()}>Home</button>
+          <button onClick={() => requestPage(nextPage)}>{">"}</button>
+          <div>
+            <button onClick={randomPokemon}>Random Pokemon</button>
+          </div>
+        </div>
+        <div className="grid grid-cols-5 gap-6">
+          <PokemonList pokemonResults={pokemonResults} />
         </div>
       </div>
-      <div className="bg-gray-800 w-full grid xs:grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-2">
-        <PokemonList pokemonResults={pokemonResults} />
+      <div>
+        <Outlet />
       </div>
-      <Outlet />
     </div>
   );
 };

@@ -21,8 +21,8 @@ const PokemonDetail = () => {
         <img src={pokemonDetail.sprites.front_default} alt="pokemon front" />
         <h1>Name: {pokemonDetail.name}</h1>
         <h2>Type: {pokemonDetail.types[0].type.name}</h2>
-        <h2>Height: {pokemonDetail.height}</h2>
-        <h2>Weight: {pokemonDetail.weight}</h2>
+        <h2>Height: {pokemonDetail.height * 10} cm</h2>
+        <h2>Weight: {pokemonDetail.weight / 10} kg</h2>
       </div>
     );
   } else return <h1>loading pokemans...</h1>;
