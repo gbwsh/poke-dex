@@ -47,7 +47,7 @@ const PokemonResults = () => {
   };
 
   return (
-    <div className="grid grid-cols-2">
+    <div className="grid grid-cols-5">
       <div className="bg-red-600">
         <div className="bg-slate-700 text-white">
           <button className="" onClick={() => requestPage(prevPage)}>
@@ -59,11 +59,11 @@ const PokemonResults = () => {
             <button onClick={randomPokemon}>Random Pokemon</button>
           </div>
         </div>
-        <div className="grid grid-cols-5 gap-6">
+        <div className="grid col-span-1 gap-6">
           <PokemonList pokemonResults={pokemonResults} />
         </div>
       </div>
-      <div>
+      <div className="bg-red-600 col-span-4 w-full h-full m-auto flex justify-center items-center">
         <Outlet />
       </div>
     </div>
