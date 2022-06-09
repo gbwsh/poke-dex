@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import API_URL from "../Api";
 import PokemonList from "./PokemonList";
+import SearchBar from "./SearchBar";
 
 const PokemonResults = () => {
   const [allPokemon, setAllPokemon] = useState([]);
@@ -45,6 +46,7 @@ const PokemonResults = () => {
     <div className="grid grid-cols-5">
       <div className="bg-red-600 ">
         <div className="bg-slate-700 text-white">
+          <SearchBar />
           <button className="" onClick={() => handleOffsetChange(-20)}>
             {"<"}
           </button>

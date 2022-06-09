@@ -1,16 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import allPokemonNames from "./allPokemonNames";
 
-const SearchBar = ({ allPokemon }) => {
-  const [searchText, setSearchText] = useState("");
-  const [results, setResults] = [];
+const SearchBar = () => {
+  const [searchText, setSearch] = useState("");
+  const [options, setOptions] = useState();
 
-  const autoComplete = (input) => {
-    if (input === "") {
-      return [];
-    } else results = setResults(allPokemon.find(searchText));
+  const testF = () => {
+    setOptions(
+      allPokemonNames.filter(
+        (suggestion) =>
+          suggestion.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+      )
+    );
   };
 
-  return <input onChange={(e) => setSearchText(e.target.value)} />;
+  useEffect(() => {
+    testF();
+  }, [searchText]);
+
+  return (
+    <div>
+      <input
+        placeholder="Search fo' pokemon"
+        onChange={(e) => setSearch(e.target.value)}
+        value={searchText}
+        className="text-black"
+      />
+      {options && options.map((pokemon) => <h3>{pokemon}</h3>)}
+    </div>
+  );
 };
 
 export default SearchBar;
