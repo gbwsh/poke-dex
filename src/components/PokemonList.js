@@ -1,18 +1,17 @@
 import { Link } from "react-router-dom";
+import capitalizeFirstLetter from "./capitalizeFirstLetter";
 
-const PokemonList = ({ pokemonResults }) => {
-  return pokemonResults ? (
-    pokemonResults.map((pokemon) => {
+const PokemonList = ({ currentPokemonList }) => {
+  return currentPokemonList ? (
+    currentPokemonList.map((pokemon) => {
       return (
-        <Link
-          to={`/details/${pokemon.name}`}
-          key={pokemon.name}
-          className="hover:underline hover:uppercase hover:text-blue-600 text-center"
-        >
-          <h1 className="bg-blue-400 border-2 self-center">
-            {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
-          </h1>
-        </Link>
+        <div key={pokemon.name} className="">
+          <Link to={`/details/${pokemon.name}`} className="text-center">
+            <h1 className="bg-sky-400 p-2 text-xl hover:bg-sky-500">
+              {capitalizeFirstLetter(pokemon.name)}
+            </h1>
+          </Link>
+        </div>
       );
     })
   ) : (
