@@ -23,7 +23,11 @@ const PokemonResults = () => {
   }, []);
 
   const handleOffsetChange = (value) => {
-    setOffset(offset + value);
+    if (offset + value === 0) {
+      setOffset(offset + 2 * value);
+    } else if (offset + value >= allPokemon.length) {
+      setOffset(0);
+    } else setOffset(offset + value);
   };
 
   useEffect(() => {
@@ -42,6 +46,8 @@ const PokemonResults = () => {
     navigate(`../details/${getRandomInt(898)}`, { replace: true });
   };
 
+  useEffect(() => console.log(offset), [offset]);
+
   return (
     <div className="grid grid-cols-5">
       <div className="bg-red-600 ">
@@ -56,11 +62,11 @@ const PokemonResults = () => {
             <button onClick={randomPokemon}>Random Pokemon</button>
           </div>
         </div>
-        <div className="grid gap-6">
+        <div className="grid">
           <PokemonList currentPokemonList={currentPokemonList} />
         </div>
       </div>
-      <div className="bg-red-600 col-span-4 w-full h-full m-auto flex justify-center items-center">
+      <div className="bg-red-700 col-span-4 w-full h-full m-auto flex justify-center items-center">
         <Outlet />
       </div>
     </div>

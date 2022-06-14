@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import allPokemonNames from "./allPokemonNames";
 
 const SearchBar = () => {
@@ -24,9 +25,25 @@ const SearchBar = () => {
         placeholder="Search fo' pokemon"
         onChange={(e) => setSearch(e.target.value)}
         value={searchText}
-        className="text-black"
+        className="text-black w-full"
       />
-      {options && options.map((pokemon) => <h3>{pokemon}</h3>)}
+      <div className="inline-block relative w-full">
+        <div
+          className="absolute z-10 hover:block"
+          onClick={() => setSearch("")}
+        >
+          {searchText &&
+            options.slice(0).map((pokemon) => (
+              <Link
+                key={pokemon}
+                className="block bg-slate-700 hover:bg-slate-600"
+                to={`/details/${pokemon}`}
+              >
+                {pokemon}
+              </Link>
+            ))}
+        </div>
+      </div>
     </div>
   );
 };

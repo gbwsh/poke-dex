@@ -18,7 +18,7 @@ const PokemonDetail = () => {
 
   if (pokemonDetail) {
     return (
-      <div className="text-3xl grid border-4 border-red-800 bg-red-700 p-6">
+      <div className="text-3xl grid border-4 border-red-900 bg-red-800 p-6">
         <img src={pokemonDetail.sprites.front_default} alt="pokemon front" />
         <h1>Name: {capitalizeFirstLetter(pokemonDetail.name)}</h1>
         <h2>Type: {capitalizeFirstLetter(pokemonDetail.types[0].type.name)}</h2>

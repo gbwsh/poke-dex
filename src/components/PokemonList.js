@@ -7,7 +7,7 @@ const PokemonList = ({ currentPokemonList }) => {
       return (
         <div key={pokemon.name} className="">
           <Link to={`/details/${pokemon.name}`} className="text-center">
-            <h1 className="bg-sky-400 p-2 text-xl">
+            <h1 className="bg-sky-400 p-2 text-xl hover:bg-sky-500">
               {capitalizeFirstLetter(pokemon.name)}
             </h1>
           </Link>
