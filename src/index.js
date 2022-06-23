@@ -9,10 +9,10 @@ import PokemonResults from "./components/PokemonResults";
 function App() {
   return (
     //<StrictMode>
-    <div className="flex justify-center">
-      <div className="p-0 m-0 w-1/2">
+    <div className="">
+      <div className="p-0 m-0">
         <BrowserRouter>
-          <header className="w-full mb-00 text-center p-7 bg-gradient-to-r from-orange-400 via-amber-400 to-blue-400 h-32px">
+          <header className="w-full mb-00 text-left p-7 bg-gradient-to-r from-orange-400 via-amber-400 to-blue-400 h-32px">
             <Link to="/" className="text-2xl hover:font-bold hover:underline">
               Pokedex
             </Link>

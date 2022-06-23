@@ -18,7 +18,7 @@ const PokemonDetail = () => {
 
   if (pokemonDetail) {
     return (
-      <div className="text-3xl grid border-4 border-red-900 bg-red-800 p-6">
+      <div className="text-3xl border-4 p-6 bg-[#fafafa] hover:bg-[#f0f0f0] absolute">
         <img src={pokemonDetail.sprites.front_default} alt="pokemon front" />
         <h1>Name: {capitalizeFirstLetter(pokemonDetail.name)}</h1>
         <h2>Type: {capitalizeFirstLetter(pokemonDetail.types[0].type.name)}</h2>
@@ -26,7 +26,7 @@ const PokemonDetail = () => {
         <h2>Weight: {pokemonDetail.weight / 10} kg</h2>
       </div>
     );
-  } else return <h1>loading pokemans...</h1>;
+  } else return <></>;
 };
 
 export default PokemonDetail;

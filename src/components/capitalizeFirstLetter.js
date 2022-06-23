@@ -1,5 +1,5 @@
-const firstLetterToUppercase = (text) => {
+const capitalizeFirstLetter = (text) => {
   return text.charAt(0).toUpperCase() + text.slice(1);
 };
 
-export default firstLetterToUppercase;
+export default capitalizeFirstLetter;

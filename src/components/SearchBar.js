@@ -33,7 +33,7 @@ const SearchBar = () => {
           onClick={() => setSearch("")}
         >
           {searchText &&
-            options.slice(0).map((pokemon) => (
+            options.slice(0, 10).map((pokemon) => (
               <Link
                 key={pokemon}
                 className="block bg-slate-700 hover:bg-slate-600"

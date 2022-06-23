@@ -7,36 +7,63 @@ import SearchBar from "./SearchBar";
 const PokemonResults = () => {
   const [allPokemon, setAllPokemon] = useState([]);
   const [currentPokemonList, setCurrentPokemonList] = useState([]);
-  const [offset, setOffset] = useState(0);
+  // const [offset, setOffset] = useState(0);
+  const [nextPage, setNextPage] = useState("");
+  const [prevPage, setPrevPage] = useState(null);
 
-  const requestPokemon = async () => await fetch(API_URL + "?limit=10000");
+  const requestPokemon = async () => await fetch(API_URL + "?limit=20");
 
   let navigate = useNavigate();
 
   useEffect(() => {
-    requestPokemon()
-      .then((response) => response.json())
-      .then((response) => {
-        setAllPokemon(response.results);
-      });
+    homePage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleOffsetChange = (value) => {
-    if (offset + value === 0) {
-      setOffset(offset + 2 * value);
-    } else if (offset + value >= allPokemon.length) {
-      setOffset(0);
-    } else setOffset(offset + value);
-  };
-
-  useEffect(() => {
-    setCurrentPokemonList(allPokemon.slice(offset, offset + 20));
-  }, [offset, allPokemon]);
-
   const homePage = () => {
-    setOffset(0);
+    requestPokemon()
+      .then((response) => response.json())
+      .then((response) => {
+        setCurrentPokemonList(response.results);
+        setNextPage(response.next);
+        setPrevPage(null);
+      });
   };
+  async function requestPage(page) {
+    if (page) {
+      const res = await fetch(page);
+      const json = await res.json();
+
+      setCurrentPokemonList(json.results);
+      setNextPage(json.next);
+      setPrevPage(json.previous);
+    } else console.log("no more pages");
+  }
+
+  // useEffect(() => {
+  //   requestPokemon()
+  //     .then((response) => response.json())
+  //     .then((response) => {
+  //       setAllPokemon(response.results);
+  //     });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
+  // const handleOffsetChange = (value) => {
+  //   if (offset + value === 0) {
+  //     setOffset(offset + 2 * value);
+  //   } else if (offset + value >= allPokemon.length) {
+  //     setOffset(0);
+  //   } else setOffset(offset + value);
+  // };
+
+  // useEffect(() => {
+  //   setCurrentPokemonList(allPokemon.slice(offset, offset + 20));
+  // }, [offset, allPokemon]);
+
+  // const homePage = () => {
+  //   setOffset(0);
+  // };
 
   function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -46,29 +73,29 @@ const PokemonResults = () => {
     navigate(`../details/${getRandomInt(898)}`, { replace: true });
   };
 
-  useEffect(() => console.log(offset), [offset]);
+  // useEffect(() => console.log(offset), [offset]);
 
   return (
-    <div className="grid grid-cols-5">
-      <div className="bg-red-600 ">
+    <div className="grid">
+      <div className="">
         <div className="bg-slate-700 text-white">
           <SearchBar />
-          <button className="" onClick={() => handleOffsetChange(-20)}>
+          <button className="" onClick={() => requestPage(prevPage)}>
             {"<"}
           </button>
-          <button onClick={() => homePage()}>Home</button>
-          <button onClick={() => handleOffsetChange(20)}>{">"}</button>
+          <button onClick={() => navigate("/")}>Home</button>
+          <button onClick={() => requestPage(nextPage)}>{">"}</button>
           <div>
             <button onClick={randomPokemon}>Random Pokemon</button>
           </div>
         </div>
-        <div className="grid">
+        <div className="grid grid-cols-5">
           <PokemonList currentPokemonList={currentPokemonList} />
         </div>
       </div>
-      <div className="bg-red-700 col-span-4 w-full h-full m-auto flex justify-center items-center">
+      {/* <div className="col-span-4 w-full h-full m-auto flex justify-center items-center">
         <Outlet />
-      </div>
+      </div> */}
     </div>
   );
 };
