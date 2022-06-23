@@ -93,9 +93,9 @@ const PokemonResults = () => {
           <PokemonList currentPokemonList={currentPokemonList} />
         </div>
       </div>
-      {/* <div className="col-span-4 w-full h-full m-auto flex justify-center items-center">
+      <div className="col-span-4 w-full h-full m-auto flex justify-center items-center">
         <Outlet />
-      </div> */}
+      </div>
     </div>
   );
 };
