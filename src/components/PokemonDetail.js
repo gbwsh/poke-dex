@@ -20,10 +20,10 @@ const PokemonDetail = () => {
     return (
       <div className="text-3xl border-4 p-6 bg-[#fafafa] hover:bg-[#f0f0f0] absolute">
         <img src={pokemonDetail.sprites.front_default} alt="pokemon front" />
-        <h1>Name: {capitalizeFirstLetter(pokemonDetail.name)}</h1>
+        <h1>{capitalizeFirstLetter(pokemonDetail.name)}</h1>
+        <h2>{pokemonDetail.height * 10} cm</h2>
+        <h2>{pokemonDetail.weight / 10} kg</h2>
         <h2>Type: {capitalizeFirstLetter(pokemonDetail.types[0].type.name)}</h2>
-        <h2>Height: {pokemonDetail.height * 10} cm</h2>
-        <h2>Weight: {pokemonDetail.weight / 10} kg</h2>
       </div>
     );
   } else return <></>;
