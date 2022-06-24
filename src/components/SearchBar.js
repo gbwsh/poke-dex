@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import allPokemonNames from "./allPokemonNames";
+import allPokemonNames from "../allPokemonNames";
 
 const SearchBar = () => {
   const [searchText, setSearch] = useState("");
@@ -22,7 +22,7 @@ const SearchBar = () => {
   return (
     <div>
       <input
-        placeholder="Search fo' pokemon"
+        placeholder="Search"
         onChange={(e) => setSearch(e.target.value)}
         value={searchText}
         className="text-black w-full"

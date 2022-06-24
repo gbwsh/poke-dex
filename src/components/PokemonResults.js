@@ -15,6 +15,25 @@ const PokemonResults = () => {
 
   let navigate = useNavigate();
 
+  const getSwapiPagerator = () =>
+    async function* () {
+      let nextUrl = `https://pokeapi.co/api/v2/pokemon?limit=20`;
+      while (nextUrl) {
+        const response = await fetch(nextUrl);
+        const data = await response.json();
+        nextUrl = data.next;
+        yield* data.results;
+      }
+    };
+
+  const pokeGen = { [Symbol.asyncIterator]: getSwapiPagerator() };
+
+  const test = async () => {
+    for await (const poke of pokeGen) {
+      setCurrentPokemonList([...currentPokemonList, poke]);
+    }
+  };
+
   useEffect(() => {
     homePage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -73,27 +92,36 @@ const PokemonResults = () => {
     navigate(`../details/${getRandomInt(898)}`, { replace: true });
   };
 
-  // useEffect(() => console.log(offset), [offset]);
+  // useEffect(() => console.log(currentPokemonList), [currentPokemonList]);
 
   return (
-    <div className="grid">
+    <div className="grid grid-cols-2">
       <div className="">
         <div className="bg-slate-700 text-white">
           <SearchBar />
           <button className="" onClick={() => requestPage(prevPage)}>
             {"<"}
           </button>
-          <button onClick={() => navigate("/")}>Home</button>
+          <button
+            onClick={() => {
+              homePage();
+              navigate("/");
+            }}
+          >
+            Home
+          </button>
           <button onClick={() => requestPage(nextPage)}>{">"}</button>
           <div>
             <button onClick={randomPokemon}>Random Pokemon</button>
           </div>
+          <button onClick={() => test()}>test</button>
+          <button onClick={() => console.log(currentPokemonList)}>log</button>
         </div>
-        <div className="grid grid-cols-5">
+        <div className="grid grid-cols-5 h-full">
           <PokemonList currentPokemonList={currentPokemonList} />
         </div>
       </div>
-      <div className="col-span-4 w-full h-full m-auto flex justify-center items-center">
+      <div className="w-full h-full m-auto flex justify-center items-center">
         <Outlet />
       </div>
     </div>
@@ -101,53 +129,3 @@ const PokemonResults = () => {
 };
 
 export default PokemonResults;
-
-// const [nextPage, setNextPage] = useState("");
-//   const [prevPage, setPrevPage] = useState(null);
-//   useEffect(() => {
-//     homePage();
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//   }, []);
-
-//   const homePage = () => {
-//     requestPokemon()
-//       .then((response) => response.json())
-//       .then((response) => {
-//         setPokemonResults(response.results);
-//         setNextPage(response.next);
-//         setPrevPage(null);
-//       });
-//   };
-//   async function requestPage(page) {
-//     if (page) {
-//       const res = await fetch(page);
-//       const json = await res.json();
-
-//       setPokemonResults(json.results);
-//       setNextPage(json.next);
-//       setPrevPage(json.previous);
-//     } else console.log("no more pages");
-//   }
-//   return (
-//     <div className="grid grid-cols-5">
-//       <div className="bg-red-600">
-//         <div className="bg-slate-700 text-white">
-//           <button className="" onClick={() => requestPage(prevPage)}>
-//             {"<"}
-//           </button>
-//           <button onClick={(e) => homePage()}>Home</button>
-//           <button onClick={() => requestPage(nextPage)}>{">"}</button>
-//           <div>
-//             <button onClick={randomPokemon}>Random Pokemon</button>
-//           </div>
-//         </div>
-//         <div className="grid col-span-1 gap-6">
-//           <PokemonList pokemonResults={pokemonResults} />
-//         </div>
-//       </div>
-//       <div className="bg-red-600 col-span-4 w-full h-full m-auto flex justify-center items-center">
-//         <Outlet />
-//       </div>
-//     </div>
-//   );
-// };

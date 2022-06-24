@@ -18,7 +18,7 @@ const PokemonDetail = () => {
 
   if (pokemonDetail) {
     return (
-      <div className="text-3xl border-4 p-6 bg-[#fafafa] hover:bg-[#f0f0f0]">
+      <div className="text-3xl border-4 p-6 bg-[#fafafa] w-full h-full">
         <img src={pokemonDetail.sprites.front_default} alt="pokemon front" />
         <h1>{capitalizeFirstLetter(pokemonDetail.name)}</h1>
         <h2>{pokemonDetail.height * 10} cm</h2>
