@@ -15,23 +15,24 @@ const PokemonResults = () => {
 
   let navigate = useNavigate();
 
-  const getSwapiPagerator = () =>
-    async function* () {
-      let nextUrl = `https://pokeapi.co/api/v2/pokemon?limit=20`;
-      while (nextUrl) {
-        const response = await fetch(nextUrl);
-        const data = await response.json();
-        nextUrl = data.next;
-        yield* data.results;
-      }
-    };
-
-  const pokeGen = { [Symbol.asyncIterator]: getSwapiPagerator() };
-
-  const test = async () => {
-    for await (const poke of pokeGen) {
-      setCurrentPokemonList([...currentPokemonList, poke]);
+  async function* getSwapiPagerator() {
+    let nextUrl = `https://pokeapi.co/api/v2/pokemon?limit=20`;
+    while (nextUrl) {
+      const response = await fetch(nextUrl);
+      const data = await response.json();
+      nextUrl = data.next;
+      yield* data.results;
     }
+  }
+
+  // const pokeGen = getSwapiPagerator().next();
+
+  const paginate = async () => {
+    const results = [];
+    for await (const poke of getSwapiPagerator()) {
+      results.push(poke);
+    }
+    setCurrentPokemonList(results);
   };
 
   useEffect(() => {
@@ -114,8 +115,8 @@ const PokemonResults = () => {
           <div>
             <button onClick={randomPokemon}>Random Pokemon</button>
           </div>
-          <button onClick={() => test()}>test</button>
-          <button onClick={() => console.log(currentPokemonList)}>log</button>
+          <button onClick={() => paginate()}>test</button>
+          <button onClick={() => console.log(typeof pokeGen)}>log</button>
         </div>
         <div className="grid grid-cols-5 h-full">
           <PokemonList currentPokemonList={currentPokemonList} />

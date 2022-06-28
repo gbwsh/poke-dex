@@ -1,4 +1,4 @@
-import React from "react";
+import React, { StrictMode } from "react";
 import "./index.css";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
@@ -8,7 +8,7 @@ import PokemonResults from "./components/PokemonResults";
 
 function App() {
   return (
-    //<StrictMode>
+    // <StrictMode>
     <div className="">
       <div className="p-0 m-0">
         <BrowserRouter>
@@ -26,7 +26,8 @@ function App() {
         </BrowserRouter>
       </div>
     </div>
-    //</StrictMode>
+    //
+    // </StrictMode>
   );
 }
 
