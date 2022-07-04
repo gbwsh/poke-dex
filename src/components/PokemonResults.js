@@ -4,6 +4,29 @@ import API_URL from "../Api";
 import PokemonList from "./PokemonList";
 import SearchBar from "./SearchBar";
 
+async function* getSwapiPagerator() {
+  let nextUrl = `https://pokeapi.co/api/v2/pokemon?limit=20`;
+  while (nextUrl) {
+    const response = await fetch(nextUrl);
+    const data = await response.json();
+    nextUrl = data.next;
+    yield data.results;
+  }
+}
+
+const pokeGen = getSwapiPagerator();
+
+const paginate = () => {
+  const results = [];
+  return async () => {
+    const { value } = await pokeGen.next();
+    if (value) results.push(...value);
+    return results;
+  };
+};
+
+const x = paginate();
+
 const PokemonResults = () => {
   const [allPokemon, setAllPokemon] = useState([]);
   const [currentPokemonList, setCurrentPokemonList] = useState([]);
@@ -14,26 +37,6 @@ const PokemonResults = () => {
   const requestPokemon = async () => await fetch(API_URL + "?limit=20");
 
   let navigate = useNavigate();
-
-  async function* getSwapiPagerator() {
-    let nextUrl = `https://pokeapi.co/api/v2/pokemon?limit=20`;
-    while (nextUrl) {
-      const response = await fetch(nextUrl);
-      const data = await response.json();
-      nextUrl = data.next;
-      yield* data.results;
-    }
-  }
-
-  // const pokeGen = getSwapiPagerator().next();
-
-  const paginate = async () => {
-    const results = [];
-    for await (const poke of getSwapiPagerator()) {
-      results.push(poke);
-    }
-    setCurrentPokemonList(results);
-  };
 
   useEffect(() => {
     homePage();
@@ -116,7 +119,16 @@ const PokemonResults = () => {
             <button onClick={randomPokemon}>Random Pokemon</button>
           </div>
           <button onClick={() => paginate()}>test</button>
-          <button onClick={() => console.log(typeof pokeGen)}>log</button>
+          <button
+            onClick={() => {
+              x().then((x) => {
+                setCurrentPokemonList(x);
+                console.log(currentPokemonList);
+              });
+            }}
+          >
+            log
+          </button>
         </div>
         <div className="grid grid-cols-5 h-full">
           <PokemonList currentPokemonList={currentPokemonList} />

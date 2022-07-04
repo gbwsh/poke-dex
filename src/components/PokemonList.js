@@ -8,8 +8,7 @@ const PokemonList = ({ currentPokemonList }) => {
         <div key={pokemon.name}>
           <Link to={`/details/${pokemon.name}`} className="text-center">
             <h1 className="bg-[#fafafa] hover:bg-[#f0f0f0] p-2 text-xl">
-              {/* {capitalizeFirstLetter(pokemon.name)} */}
-              {pokemon.name}
+              {capitalizeFirstLetter(pokemon.name)}
             </h1>
           </Link>
         </div>
