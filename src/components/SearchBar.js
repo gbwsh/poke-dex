@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import allPokemonNames from "../allPokemonNames";
 
-const SearchBar = () => {
+const SearchBar = ({ allPokemon }) => {
   const [searchText, setSearch] = useState("");
   const [options, setOptions] = useState();
 
   const testF = () => {
     setOptions(
-      allPokemonNames.filter(
+      allPokemon.filter(
         (suggestion) =>
           suggestion.toLowerCase().indexOf(searchText.toLowerCase()) > -1
       )
@@ -19,7 +19,7 @@ const SearchBar = () => {
     testF();
   }, [searchText]);
 
-  return (
+  return options ? (
     <div>
       <input
         placeholder="Search"
@@ -27,11 +27,8 @@ const SearchBar = () => {
         value={searchText}
         className="text-black w-full"
       />
-      <div className="inline-block relative w-full">
-        <div
-          className="absolute z-10 hover:block"
-          onClick={() => setSearch("")}
-        >
+      <div className="inline-block w-full">
+        <div className="z-10 hover:block" onClick={() => setSearch("")}>
           {searchText &&
             options.slice(0, 10).map((pokemon) => (
               <Link
@@ -45,6 +42,8 @@ const SearchBar = () => {
         </div>
       </div>
     </div>
+  ) : (
+    <h1>loading</h1>
   );
 };
 

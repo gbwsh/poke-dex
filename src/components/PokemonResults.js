@@ -16,13 +16,12 @@ async function* getSwapiPagerator() {
 
 const pokeGen = getSwapiPagerator();
 
-const paginate = () => {
+const paginate = async () => {
   const results = [];
-  return async () => {
-    const { value } = await pokeGen.next();
-    if (value) results.push(...value);
-    return results;
-  };
+  const { value } = await pokeGen.next();
+
+  if (value) results.push(...value);
+  return results;
 };
 
 const x = paginate();
@@ -99,10 +98,10 @@ const PokemonResults = () => {
   // useEffect(() => console.log(currentPokemonList), [currentPokemonList]);
 
   return (
-    <div className="grid grid-cols-2">
+    <div className="grid grid-cols-5">
       <div className="">
         <div className="bg-slate-700 text-white">
-          <SearchBar />
+          {/* <SearchBar allPokemon={currentPokemonList} /> */}
           <button className="" onClick={() => requestPage(prevPage)}>
             {"<"}
           </button>
@@ -115,27 +114,27 @@ const PokemonResults = () => {
             Home
           </button>
           <button onClick={() => requestPage(nextPage)}>{">"}</button>
+          <button onClick={() => navigate("/search")}>search view</button>
           <div>
             <button onClick={randomPokemon}>Random Pokemon</button>
           </div>
           <button onClick={() => paginate()}>test</button>
           <button
             onClick={() => {
-              x().then((x) => {
-                setCurrentPokemonList(x);
-                console.log(currentPokemonList);
+              paginate().then((data) => {
+                setCurrentPokemonList((oldArr) => [...oldArr, ...data]);
               });
             }}
           >
             log
           </button>
         </div>
-        <div className="grid grid-cols-5 h-full">
-          <PokemonList currentPokemonList={currentPokemonList} />
+        <div className="grid h-full">
+          {/* <PokemonList currentPokemonList={currentPokemonList} /> */}
         </div>
       </div>
-      <div className="w-full h-full m-auto flex justify-center items-center">
-        <Outlet />
+      <div className="grid grid-cols-5 col-span-4 m-auto">
+        <Outlet context={[currentPokemonList, setCurrentPokemonList]} />
       </div>
     </div>
   );
