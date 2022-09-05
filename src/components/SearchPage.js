@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import API_URL from "../Api";
 import PokemonList from "./PokemonList";
 import SearchBar from "./SearchBar";
 
 const SearchPage = () => {
   const [allPokemon, setAllPokemon] = useState([]);
+  const [currentPokemonList, setCurrentPokemonList] = useOutletContext();
   const requestPokemon = async () => await fetch(API_URL + "?limit=20000");
 
   useEffect(() => {
@@ -12,12 +14,16 @@ const SearchPage = () => {
       .then((response) => response.json())
       .then((response) => {
         for (let pokemon of response.results) {
-          setAllPokemon((oldArr) => [...oldArr, pokemon.name]);
+          setCurrentPokemonList([...currentPokemonList, pokemon.name]);
         }
       });
   }, []);
 
-  return <SearchBar allPokemon={allPokemon} />;
+  return currentPokemonList ? (
+    <SearchBar allPokemon={currentPokemonList} />
+  ) : (
+    <h1>loading</h1>
+  );
 };
 
 export default SearchPage;

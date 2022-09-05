@@ -100,7 +100,7 @@ const PokemonResults = () => {
   return (
     <div className="grid grid-cols-5">
       <div className="">
-        <div className="bg-slate-700 text-white">
+        <div className="bg-slate-700 text-white flex flex-col items-start">
           {/* <SearchBar allPokemon={currentPokemonList} /> */}
           <button className="" onClick={() => requestPage(prevPage)}>
             {"<"}

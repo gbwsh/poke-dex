@@ -10,7 +10,7 @@ const SearchBar = ({ allPokemon }) => {
     setOptions(
       allPokemon.filter(
         (suggestion) =>
-          suggestion.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+          suggestion.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1
       )
     );
   };
@@ -18,6 +18,8 @@ const SearchBar = ({ allPokemon }) => {
   useEffect(() => {
     testF();
   }, [searchText]);
+
+  console.log(allPokemon);
 
   return options ? (
     <div>
@@ -30,7 +32,7 @@ const SearchBar = ({ allPokemon }) => {
       <div className="inline-block w-full">
         <div className="z-10 hover:block" onClick={() => setSearch("")}>
           {searchText &&
-            options.slice(0, 10).map((pokemon) => (
+            options.map((pokemon) => (
               <Link
                 key={pokemon}
                 className="block bg-slate-700 hover:bg-slate-600"
